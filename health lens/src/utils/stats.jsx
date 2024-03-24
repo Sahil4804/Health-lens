@@ -8,7 +8,7 @@ export function getStats(data, categories){
   let stats = []
   for (const [key, value] of Object.entries(categories)) {
     const tmp = dataNew.filter(el=>el.category === key)
-    const max_value = d3.max(tmp.map(el=>el.value))
+    const max_value = tmp[tmp.length-1].value
     const mean_value = d3.mean(tmp.map(el=>el.value))
     stats.push({
       category : key,

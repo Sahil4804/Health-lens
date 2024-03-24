@@ -11,13 +11,13 @@ const StatPanel = ({ data, metrics, direction }) => {
 
   return (
     <StatPanelStyled style={{justifyContent: direction === 'left' ? 'flex-start' : 'flex-end', width: '100%'}}>
-      <div style={{margin: '5px 20px', fontWeight: 'bold'}}>{metrics.value.charAt(0).toUpperCase() + metrics.value.slice(1)}</div>
+      <div style={{margin: '5px 20px', fontWeight: 'bold'}}>Current Heart rate</div>
       { data.map((d,i)=> {
         return <Stat
           key={'stat-' + i} 
           value={d[value]}
           suffix={d[suffix]}
-          caption={d.label}
+          caption={"BPM"}
           direction="bottom"
           color="black"
         />

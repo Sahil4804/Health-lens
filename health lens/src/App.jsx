@@ -9,7 +9,7 @@ import { getData, getNewData } from "./utils/getData";
 
 import './App.css'
 
-const metricsAttrs = {position: 'top', value: "maximum", categories: {'heart_rate': 'Heart Rate', 'heart_intensity': 'Heart Intensity', 'blood_pulse': 'Blood Pulse'}}
+const metricsAttrs = {position: 'top', value: "maximum", categories: {'heart_rate': 'Heart Rate'}}
 
 const App = () => {
 
