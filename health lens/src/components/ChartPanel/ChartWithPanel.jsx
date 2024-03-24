@@ -15,6 +15,7 @@ const ChartWithPanel = (Component) => {
 
     const { data, id, metrics } = props
     const stats = getStats(data, metrics.categories)
+    // console.log(metrics.categories);
     
     return (  
       <div className={id}> 

@@ -9,7 +9,7 @@ import { getData, getNewData } from "./utils/getData";
 
 import './App.css'
 
-const metricsAttrs = {position: 'top', value: "maximum", categories: {'heart_rate': 'Heart Rate'}}
+const metricsAttrs = { position: 'top', value: "maximum", categories: { 'heart_rate': 'Heart Rate' }}
 
 const App = () => {
 
@@ -53,11 +53,11 @@ const App = () => {
     {data && 
     <div className="wrapper">
       <div className="header">
-        <h2>MONITORING PATIENT VITALS</h2>
-        <div className='header-details'>
+        <h2>Health Lens</h2>
+        {/* <div className='header-details'>
           <p><span style={{fontWeight: 'bold'}}>Patient ID:</span> 352405</p>
           <p><span style={{fontWeight: 'bold'}}>Datetime Range:</span> {d3.timeFormat("%B %d, %Y")(datetime.start)} {timeFormat(datetime.start) + ' - ' + timeFormat(datetime.current)}</p>
-        </div>
+        </div> */}
       </div>
       <div className="box">
         <Provider>
@@ -66,6 +66,7 @@ const App = () => {
           metrics={metricsAttrs}
           timeformat={timeFormat}
         />
+        
         </Provider>       
       </div>
     </div>}

@@ -8,13 +8,14 @@ const statComponentsByDirection = {
   bottom: captionBottom,
 }
 
-const Stat = ({ value, suffix, caption, color, direction, ...props }) => {
+const Stat = ({ value, avg, suffix, caption, color, direction, ...props }) => {
   const Component = statComponentsByDirection[direction]
   if (!Component) return null
 
   return (
     <Component
       value={value}
+      avg={avg}
       suffix={suffix}
       caption={caption}
       color={color}
@@ -38,38 +39,58 @@ Stat.defaultProps = {
 
 export default Stat
 
-function captionBottom ({ value, suffix, caption, color, ...props }) {
+function captionBottom({ value, avg, suffix, caption, color, ...props }) {
   return (
-    <StatStyled style={{borderColor: color}} {...props}>
-      <div className="Stat__data">
-        <div className="Stat__value">
-          { value }
+    <>
+      <StatStyled style={{ borderColor: color }} {...props}>
+        <div className="Stat__data">
+          <div className="Stat__value">
+            {value}
+          </div>
+          {suffix && <div className="Stat__suffix" style={{ color: color }}>
+            {suffix}
+          </div>}
         </div>
-        { suffix && <div className="Stat__suffix" style={{color: color}}>
-          { suffix }
-        </div> } 
-      </div>    
-      <div className="Stat__caption">
-        { caption }
-      </div>
-    </StatStyled>
+        <div className="Stat__caption">
+          {caption}
+        </div>
+
+      </StatStyled>
+      <div style={{ margin: '5px 10px', fontWeight: 'bold' }}>Average heart rate</div>
+
+      <StatStyled style={{ borderColor: color }} {...props}>
+        <div className="Stat__data">
+          <div className="Stat__value">
+            {avg}
+          </div>
+          {suffix && <div className="Stat__suffix" style={{ color: color }}>
+            {suffix}
+          </div>}
+        </div>
+        <div className="Stat__caption">
+          {caption}
+        </div>
+
+      </StatStyled>
+    </>
+
   )
 }
 
-function captionTop ({ value, suffix, caption, color, ...props }) {
+function captionTop({ value, avg, suffix, caption, color, ...props }) {
   return (
-    <StatStyled style={{borderColor: color}} {...props}>
+    <StatStyled style={{ borderColor: color }} {...props}>
       <div className="Stat__caption">
-        { caption }
+        {caption}
       </div>
       <div className="Stat__data">
         <div className="Stat__value">
-          { value }
+          {value} : {avg}
         </div>
-        { suffix && <div className="Stat__suffix" style={{color: color}}>
-          { suffix }
-        </div> } 
-      </div> 
+        {suffix && <div className="Stat__suffix" style={{ color: color }}>
+          {suffix}
+        </div>}
+      </div>
     </StatStyled>
   )
 }

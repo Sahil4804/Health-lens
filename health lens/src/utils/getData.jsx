@@ -10,19 +10,19 @@ import { useState } from 'react'
 // if(ipad_portrait) { console.log('ipad_portrait')}
 // if(laptop) { console.log('laptop')}
 // if(desktop) { console.log('desktop')}
-let arr = []
-d3.csv("../../Datasets/heartrate_seconds_merged.csv", function (d) {
-  if (d.Id == 2022484408) {
-    if (d.heart_rate) {
-      arr.push({
-        date: d.date,
-        value: d.heart_rate,
-        category: 'heart_rate'
-      })
-    }
+// let arr = []
+// d3.csv("../../Datasets/heartrate_seconds_merged.csv", function (d) {
+//   if (d.Id == 2022484408) {
+//     if (d.heart_rate) {
+//       arr.push({
+//         date: d.date,
+//         value: d.heart_rate,
+//         category: 'heart_rate'
+//       })
+//     }
 
-  }
-})
+//   }
+// })
 
 
 
@@ -37,7 +37,7 @@ export const getData = (interval,index) => {
 
   const minutes = getNumber()
   const hours = minutes / 60
-
+  var prev = 0;
   for (i = minutes; i <= 0; i += 1) {
     data.push({
       date: time + i * interval,
@@ -46,9 +46,10 @@ export const getData = (interval,index) => {
     })
     data.push({
       date: time + i * interval,
-      value: getRandomInt(0, 20),
+      value: Math.abs(data[data.length - 1].value - prev)/5,
       category: 'heart_intensity'
     })
+    prev = data[data.length - 1].value
     data1.push({
       date: time + i * interval,
       value: getRandomInt(0, 10),
