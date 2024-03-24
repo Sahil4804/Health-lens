@@ -18,7 +18,6 @@ const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
 
   const { heart, blood_pulse } = data;
 
-
   // Manually group data by category
   const groupedHeart = {};
   heart.forEach((item) => {
@@ -58,50 +57,66 @@ const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
 
   const yScale = d3
     .scaleLinear()
-    .domain(d3.extent(heart, yAccessor))
+    .domain([40, 135])
     .range([topHeight, 0])
     .nice();
   // const colorScale = d3.scaleLinear()
   //   .domain([0, 10, 20])
   //   .range(["#48acf0", "#fdf5ce", "#fe5f55"])
-  const colorScale = d3.scaleLinear()
-    .domain([0, 5, 10, 15, 20])
-    .range(["#DFF9F2", "#B6EEE3", "#8CE4D3", "#63D9C3", "#3ACFB4", "#11C4A4", "#00A388"]);
+  //   const colorScale = d3.scaleLinear()
+  //     .domain([0,2,4,6,8])
+  //     .range(["#DFF9F2", "#B6EEE3", "#8CE4D3", "#63D9C3", "#3ACFB4", "#11C4A4", "#00A388"]);
 
+  const colorScale = d3
+    .scaleLinear()
+    .domain([0, 8]) // Replace with the maximum value in your data
+    .range(["#6b6969", "#454444"]); // Light gray to darker gray
 
-
-
-
-
-  const colorScale1 = d3.scaleLinear()
+  const colorScale1 = d3
+    .scaleLinear()
     .domain([0, 10])
-    .range(["#dbcdf0", "#5e4ae3"])
+    .range(["#dbcdf0", "#5e4ae3"]);
 
-  const lineColorAccessor = d => 'black'
-  const colorAccessor = d => colorScale(d.value)
-  const colorAccessor1 = d => colorScale1(d.value)
-  const xAccessorScaled = d => xScale(xAccessor(d))
-  const xAccessorScaledBar = d => xScale(xAccessor(d)) - barWidth / 2
-  const yAccessorScaled = d => yScale(yAccessor(d))
-  const y0AccessorScaled = yScale(yScale.domain()[0])
+  const lineColorAccessor = (d) => "#fa6c07";
+  const colorAccessor = (d) => colorScale(d.value);
+  const colorAccessor1 = (d) => colorScale1(d.value);
+  const xAccessorScaled = (d) => xScale(xAccessor(d));
+  const xAccessorScaledBar = (d) => xScale(xAccessor(d)) - barWidth / 2;
+  const yAccessorScaled = (d) => yScale(yAccessor(d));
+  const y0AccessorScaled = yScale(yScale.domain()[0]);
 
-  const hr = d3.range(0, 20, 2)
-  const bpw = d3.range(0, 10, 1)
+  const hr = d3.range(0, 20, 2);
+  const bpw = d3.range(0, 10, 1);
 
   const popover = (d) => {
-    let date = xScale.invert(d.x)
-    let hrValue = heart.find(el => (el.date === date.getTime()) & (el.category === 'heart_rate')).value
-    let hiValue = heart.find(el => (el.date === date.getTime()) & (el.category === 'heart_intensity')).value
-    let bpwValue = blood_pulse.find(el => el.date === date.getTime()).value
-    setHover({ date, heart_rate: hrValue, heart_intensity: hiValue, blood_pulse: bpwValue, show: d.show })
-  }
-  var something = getStats(data,{ 'heart_rate': 'Heart Rate' });
-  console.log(something)
+    let date = xScale.invert(d.x);
+    let hrValue = heart.find(
+      (el) => (el.date === date.getTime()) & (el.category === "heart_rate")
+    ).value;
+    let hiValue = heart.find(
+      (el) => (el.date === date.getTime()) & (el.category === "heart_intensity")
+    ).value;
+    let bpwValue = blood_pulse.find((el) => el.date === date.getTime()).value;
+    setHover({
+      date,
+      heart_rate: hrValue,
+      heart_intensity: hiValue,
+      blood_pulse: bpwValue,
+      show: d.show,
+    });
+  };
+  var something = getStats(data, { heart_rate: "Heart Rate" });
+  console.log(something);
   return (
     <Chart dimensions={dimensions}>
-
-      <g transform={mobile_portrait ? `translate(-30, -60)` : `translate(0, -60)`}>
-        <text x={0} y={-5} fill="black" fontWeight="bold">Intensity of motion</text>
+      <g
+        transform={
+          mobile_portrait ? `translate(-30, -60)` : `translate(0, -60)`
+        }
+      >
+        <text x={0} y={-5} fill="black" fontWeight="bold">
+          Intensity of motion
+        </text>
         {/* <line
           x1={0}
           y1={yScale(60)}
@@ -126,22 +141,23 @@ const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
         <text x={5} y={yScale(57)} fill="black" fontWeight="bold">
           Recommended BPM
         </text> */}
-        
-
 
         <Axis
           dimensions={{ boundedWidth: hr.length * barWidth, boundedHeight: 25 }}
           dimension="x"
-          scale={d3.scaleLinear().domain([0, 20]).range([0, hr.length * barWidth])}
+          scale={d3
+            .scaleLinear()
+            .domain([0, 5])
+            .range([0, hr.length * barWidth])}
           tickSize={10}
-          type='step'
+          type="step"
         />
         <Bar
           data={hr}
           xAccessor={(d, i) => i * barWidth}
           yAccessor={0}
           y0Accessor={25}
-          colorAccessor={d => colorScale(d)}
+          colorAccessor={(d) => colorScale(d)}
           width={barWidth}
           mouseOver={popover}
         />
@@ -174,7 +190,10 @@ const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
           tickSize={10}
         />
         <Axis
-          dimensions={{ boundedWidth: dimensions.boundedWidth, boundedHeight: topHeight }}
+          dimensions={{
+            boundedWidth: dimensions.boundedWidth,
+            boundedHeight: topHeight,
+          }}
           dimension="y"
           scale={yScale}
           tickSize={-10}
@@ -190,31 +209,20 @@ const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
           width={barWidth}
           mouseOver={popover}
         />
-        {hover.show && <text
-          x={xScale(hover.date) - barWidth / 2}
-          y={topHeight}
-        >
-          {hover.heart_intensity}
-        </text>}
-        {lineValues.map((d, i) => {
-          return <Line
-            type={d.type}
-            key={'line-' + i}
-            data={d.values}
-            stroke={lineColorAccessor(d)}
-            fill={d.type === 'area' ? lineColorAccessor(d) : "none"}
-            xAccessor={xAccessorScaled}
-            yAccessor={yAccessorScaled}
-            y0Accessor={y0AccessorScaled}
-          />
-        })}
+        {hover.show && (
+          <text x={xScale(hover.date) - barWidth / 2} y={topHeight}>
+            {hover.heart_intensity}
+          </text>
+        )}
 
-        {hover.show && <text
-          x={xScale(hover.date) - barWidth / 2}
-          y={yScale(hover.heart_rate) - 5}
-        >
-          {hover.heart_rate + " BPM"}
-        </text>}
+        {hover.show && (
+          <text
+            x={xScale(hover.date) - barWidth / 2}
+            y={yScale(hover.heart_rate) - 5}
+          >
+            {hover.heart_rate + " BPM"}
+          </text>
+        )}
       </g>
       {/* <g transform={`translate(0, ${topHeight})`}>
         <Bar
@@ -233,7 +241,7 @@ const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
           {hover.blood_pulse}
         </text>}
       </g> */}
-       <line
+      <line
         x1={0}
         y1={yScale(something[0].average)}
         x2={dimensions.boundedWidth}
@@ -242,11 +250,7 @@ const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
         strokeWidth={2}
         strokeDasharray="4"
       />
-      <foreignObject x={0} y={0} width={dimensions.boundedWidth} height={dimensions.boundedHeight} style={{ zIndex: 999 }}>
-        <div style={{ position: 'absolute', top: yScale(80) - 50, left: '10%', transform: 'translateX(-50%)', background: 'rgba(255, 255, 255, 0.9)', padding: '10px', border: '2px solid black', borderRadius: '5px' }}>
-          <text fill="black" fontWeight="bold">recommend HeartRate </text>
-        </div>
-      </foreignObject>
+
       <line
         x1={0}
         y1={yScale(80)}
@@ -257,19 +261,54 @@ const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
         // strokeDasharray="4"
       />
       {/* Render the textbox above the line */}
-      
 
-
-
-     
       {/* Render the textbox above the line */}
       {/* <foreignObject x={1000} y={0} width={dimensions.boundedWidth} height={dimensions.boundedHeight} style={{ zIndex: 999 }}>
         <div style={{ position: 'absolute', top: yScale(80) - 50, left: '10%', transform: 'translateX(-50%)', background: 'rgba(255, 255, 255, 0.9)', padding: '10px', border: '2px solid black', borderRadius: '5px' }}>
           <text fill="black" fontWeight="bold">{something[0].average}</text>
         </div>
       </foreignObject> */}
+      {lineValues.map((d, i) => {
+        return (
+          <Line
+            type={d.type}
+            key={"line-" + i}
+            data={d.values}
+            stroke={lineColorAccessor(d)}
+            style={{ strokeWidth: 4 }}
+            fill={d.type === "area" ? lineColorAccessor(d) : "none"}
+            xAccessor={xAccessorScaled}
+            yAccessor={yAccessorScaled}
+            y0Accessor={y0AccessorScaled}
+          />
+        );
+      })}
+      <foreignObject
+        x={0}
+        y={0}
+        width={dimensions.boundedWidth}
+        height={dimensions.boundedHeight}
+        style={{ zIndex: 999 }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            top: yScale(80) - 50,
+            left: "10%",
+            transform: "translateX(-50%)",
+            background: "rgba(255, 255, 255, 0.9)",
+            padding: "10px",
+            border: "2px solid black",
+            borderRadius: "5px",
+          }}
+        >
+          <text fill="black" fontWeight="bold">
+            recommend HeartRate{" "}
+          </text>
+        </div>
+      </foreignObject>
     </Chart>
-  )
+  );
 }
 
 

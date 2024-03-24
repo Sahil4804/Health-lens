@@ -5,14 +5,14 @@ import LineBarSeries from "./components/ChartBar/LineBarSeries";
 
 import ChartWithPanel from "./components/ChartPanel/ChartWithPanel";
 import { Provider } from "./components/ChartPanel/Provider";
-import { getData, getNewData } from "./utils/getData";
+import { getData, getNewData,csv_data } from "./utils/getData";
 
 import './App.css'
 
 const metricsAttrs = { position: 'top', value: "maximum", categories: { 'heart_rate': 'Heart Rate' }}
 
 const App = () => {
-
+    var lol=0;
   const [datetime, setDateTime] = useState({'start': new Date(), 'current': new Date()});
   const [data, setData] = useState(null)
   const LineBarChart = ChartWithPanel((props) => <LineBarSeries {...props} />)
@@ -22,18 +22,19 @@ const App = () => {
   const timeFormat = milliseconds === 1000 ? d3.timeFormat("%H:%M:%S %p") : d3.timeFormat("%H:%M %p")
 
   useEffect(() => {
+}, [])
 
-  }, [])
-
-  useEffect(() => {
-
-    setData(getData(milliseconds))
+useEffect(() => {
+    
+    csv_data()
+    // setData(getData(milliseconds,lol))
 
     const interval = setInterval(() => {
 
       const current = new Date()
 
-      let dataInitial = getData(milliseconds, index)
+      let dataInitial = getData(milliseconds, lol)
+      lol+=10
       let dataToAdd = getNewData(current, milliseconds)
       
       setData(dataInitial)

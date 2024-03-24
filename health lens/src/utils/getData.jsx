@@ -5,6 +5,7 @@ var laptop = Math.min(window.innerWidth) > 1024
 var desktop = Math.min(window.innerWidth) > 1680
 import * as d3 from 'd3'
 import { useState } from 'react'
+
 // if(ipadPRO_landscape) { console.log('ipadPRO_landscape')}
 // if(ipad_landscape) { console.log('ipad_landscape')}
 // if(ipad_portrait) { console.log('ipad_portrait')}
@@ -24,24 +25,34 @@ import { useState } from 'react'
 //   }
 // })
 
+var arr=[]
 
-
-
+export const csv_data = async function(){
+    arr=await d3.csv("../../Datasets/output.csv")
+}
 export const getData = (interval,index) => {
 
-  // generate an array of random data
+//   var arr=[]
+//   d3.csv("../../Datasets/output.csv",async function (d) {
+//     arr.push(d)
+//   })
+  console.log("arr length ",arr.length)
+  console.log("arr elem",arr[0])
+  console.log(index)
   var data = [],
     data1 = [],
-    time = (new Date()).getTime(),
-    i;
+    time = (new Date()).getTime();
 
   const minutes = getNumber()
   const hours = minutes / 60
   var prev = 0;
-  for (i = minutes; i <= 0; i += 1) {
+  var start1=index+1;
+    var end1=index+Math.abs(minutes);
+    // console.log("start1 ",start1,"end1 ",end1)
+  for (var i = start1; i <= end1; i ++) {
     data.push({
       date: time + i * interval,
-      value: getRandomInt(40, 130),
+      value: parseInt(arr[i].Value),
       category: 'heart_rate'
     })
     data.push({
@@ -100,4 +111,4 @@ function getNumber() {
   } else {
     return -120
   }
-} 
+}
