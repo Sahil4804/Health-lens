@@ -2,7 +2,8 @@ import React from "react"
 import PropTypes from "prop-types"
 import * as d3 from 'd3'
 import { dimensionsPropsType } from "../../utils/chart-utils";
-
+import useTheme from "../../contexts/ProvideContext";
+import { useContext } from "react";
 import AxisStyled from "./AxisStyled";
 
 
@@ -61,6 +62,7 @@ function AxisHorizontal ({ dimensions, label, formatTick, tickSize, scale, type,
     })
 
   }
+  const { themeMode } = useTheme();
 
   return (
     <AxisStyled className="Axis AxisHorizontal" transform={`translate(0, ${dimensions.boundedHeight})`} {...props}>
@@ -73,6 +75,7 @@ function AxisHorizontal ({ dimensions, label, formatTick, tickSize, scale, type,
           <text
             className="Axis__tick"
             transform={`translate(${scale(tick)}, 25)`}
+            stroke={themeMode === "light" ? "#333333" : "white"}
           >
             { formatTick(tick) }
           </text>
@@ -88,6 +91,7 @@ function AxisHorizontal ({ dimensions, label, formatTick, tickSize, scale, type,
         <text
           className="Axis__label"
           transform={`translate(${dimensions.boundedWidth / 2}, 60)`}
+          stroke={themeMode === "light" ? "#333333" : "#ffffff"}
         >
           { label }
         </text>
@@ -110,7 +114,7 @@ function AxisVertical ({ dimensions, label, formatTick, tickSize, scale, type, .
         return (i%step) === 0
     })
   }
-
+  const { themeMode } = useTheme();
   return (
     <AxisStyled className="Axis AxisVertical" {...props}>
       <line
@@ -123,6 +127,7 @@ function AxisVertical ({ dimensions, label, formatTick, tickSize, scale, type, .
           <text
             className="Axis__tick"
             transform={`translate(-16, ${scale(tick)})`}
+            stroke={themeMode === "light" ? "#333333" : "#ffffff"}
           >
             { formatTick(tick) }
           </text>
@@ -139,8 +144,10 @@ function AxisVertical ({ dimensions, label, formatTick, tickSize, scale, type, .
         <text
           className="Axis__label"
           style={{
-            transform: `translate(-56px, ${dimensions.boundedHeight / 2}px) rotate(-90deg)`
+            transform: `translate(-56px, ${dimensions.boundedHeight / 2}px) rotate(-90deg)`,
+    
           }}
+          stroke={themeMode === "light" ? "#333333" : "#ffffff"}
         >
           { label }
         </text>

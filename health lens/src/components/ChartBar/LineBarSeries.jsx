@@ -62,13 +62,7 @@ const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
     .domain([40, 135])
     .range([topHeight, 0])
     .nice();
-  // const colorScale = d3.scaleLinear()
-  //   .domain([0, 10, 20])
-  //   .range(["#48acf0", "#fdf5ce", "#fe5f55"])
-  //   const colorScale = d3.scaleLinear()
-  //     .domain([0,2,4,6,8])
-  //     .range(["#DFF9F2", "#B6EEE3", "#8CE4D3", "#63D9C3", "#3ACFB4", "#11C4A4", "#00A388"]);
-
+  
   //   const colorScale = d3
   //     .scaleLinear()
   //     .domain([0, 8]) // Replace with the maximum value in your data
@@ -78,25 +72,20 @@ const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
     .scaleLinear()
     .domain([0, 8]) // Replace with the maximum value in your data
     .range(
-      themeMode === "dark" ? ["#6b6969", "#454444"] : ["#9ee19a", "#187a17"]
+      themeMode === "dark" ? ["#6b6969", "#454444"] : ["#F1EAFF","#DCBFFF"]
     ); // Light gray to darker gray or light green to dark green
 
-  const colorScale1 = d3
-    .scaleLinear()
-    .domain([0, 10])
-    .range(["#dbcdf0", "#5e4ae3"]);
+  
 
   //   const lineColorAccessor = (d) => "#fa6c07";
   const lineColorAccessor = (d) => (themeMode === "dark" ? "#fa6c07" : "red");
   const colorAccessor = (d) => colorScale(d.value);
-  const colorAccessor1 = (d) => colorScale1(d.value);
   const xAccessorScaled = (d) => xScale(xAccessor(d));
   const xAccessorScaledBar = (d) => xScale(xAccessor(d)) - barWidth / 2;
   const yAccessorScaled = (d) => yScale(yAccessor(d));
   const y0AccessorScaled = yScale(yScale.domain()[0]);
 
   const hr = d3.range(0, 20, 2);
-  const bpw = d3.range(0, 10, 1);
 
   const popover = (d) => {
     let date = xScale.invert(d.x);
@@ -124,33 +113,10 @@ const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
           mobile_portrait ? `translate(-30, -60)` : `translate(0, -60)`
         }
       >
-        <text x={0} y={-5} fill="black" fontWeight="bold">
+        <text x={0} y={-5} fill={themeMode==='light'?"black":"white"} fontWeight="bold">
           Intensity of motion
         </text>
-        {/* <line
-          x1={0}
-          y1={yScale(60)}
-          x2={dimensions.boundedWidth}
-          y2={yScale(60)}
-          stroke="black" // Change the color to white
-          strokeWidth={2} // Increase the width to make it thicker
-        // strokeDasharray="4" // Optional: Add dashed style
-        /> */}
-        {/* <text
-          x={0}
-          y={yScale(60)}
-          
-          stroke="black" // Change the color to white
-          strokeWidth={1} // Increase the width to make it thicker
-          strokeOpacity={4}
-         
-        >
-          Recommended BPM
-        </text> */}
-        {/* <rect x={0} y={yScale(65)} width={170} height={30} fill="white" stroke="black" strokeWidth={2} />
-        <text x={5} y={yScale(57)} fill="black" fontWeight="bold">
-          Recommended BPM
-        </text> */}
+        
 
         <Axis
           dimensions={{ boundedWidth: hr.length * barWidth, boundedHeight: 25 }}
@@ -172,25 +138,7 @@ const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
           mouseOver={popover}
         />
       </g>
-      {/* <g transform={mobile_portrait ? `translate(120, -60)` : `translate(330, -60)`}>
-        <text x={0} y={-5} fill="black" fontWeight="bold">Intensity of blood pulse wave</text>
-        <Axis
-          dimensions={{ boundedWidth: bpw.length * barWidth, boundedHeight: 25 }}
-          dimension="x"
-          scale={d3.scaleLinear().domain([0, 10]).range([0, bpw.length * barWidth])}
-          tickSize={10}
-          type='step'
-        />
-        <Bar
-          data={d3.range(0, 10)}
-          xAccessor={(d, i) => i * barWidth}
-          yAccessor={0}
-          y0Accessor={25}
-          colorAccessor={d => colorScale1(d)}
-          width={barWidth}
-          mouseOver={popover}
-        />
-      </g> */}
+   
       <g transform={`translate(0, 0)`}>
         <Axis
           dimensions={dimensions}
@@ -234,29 +182,13 @@ const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
           </text>
         )}
       </g>
-      {/* <g transform={`translate(0, ${topHeight})`}>
-        <Bar
-          data={blood_pulse}
-          xAccessor={xAccessorScaledBar}
-          yAccessor={0}
-          y0Accessor={bottomHeight}
-          colorAccessor={colorAccessor1}
-          width={barWidth}
-          mouseOver={popover}
-        />
-        {hover.show && <text
-          x={xScale(hover.date) - barWidth / 2}
-          y={bottomHeight}
-        >
-          {hover.blood_pulse}
-        </text>}
-      </g> */}
+    
       <line
         x1={0}
         y1={yScale(something[0].average)}
         x2={dimensions.boundedWidth}
         y2={yScale(something[0].average)}
-        stroke="black"
+        stroke={themeMode === "light" ? "#333333" : "white"}
         strokeWidth={2}
         strokeDasharray="4"
       />
@@ -266,18 +198,11 @@ const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
         y1={yScale(80)}
         x2={dimensions.boundedWidth}
         y2={yScale(80)}
-        stroke="black"
+        stroke={themeMode === "light" ? "#333333" : "white"}
         strokeWidth={2}
         // strokeDasharray="4"
       />
-      {/* Render the textbox above the line */}
-
-      {/* Render the textbox above the line */}
-      {/* <foreignObject x={1000} y={0} width={dimensions.boundedWidth} height={dimensions.boundedHeight} style={{ zIndex: 999 }}>
-        <div style={{ position: 'absolute', top: yScale(80) - 50, left: '10%', transform: 'translateX(-50%)', background: 'rgba(255, 255, 255, 0.9)', padding: '10px', border: '2px solid black', borderRadius: '5px' }}>
-          <text fill="black" fontWeight="bold">{something[0].average}</text>
-        </div>
-      </foreignObject> */}
+     
       {lineValues.map((d, i) => {
         return (
           <Line
@@ -307,12 +232,13 @@ const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
             left: "10%",
             transform: "translateX(-50%)",
             background: "rgba(255, 255, 255, 0.9)",
+            backgroundColor: themeMode === "light" ? "#ffffff" : "#333333",
             padding: "10px",
             border: "2px solid black",
             borderRadius: "5px",
           }}
         >
-          <text fill="black" fontWeight="bold">
+          <text fill={"black"} fontWeight="bold">
             recommend HeartRate{" "}
           </text>
         </div>

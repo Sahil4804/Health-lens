@@ -1,11 +1,8 @@
 import styled from "styled-components";
 
 const AxisStyled = styled.g`
-  
-  text {
-    fill: black;
-  }
 
+  
   & .Axis {
     opacity: 0.7;
   }

@@ -3,8 +3,8 @@ import * as d3 from "d3"
 
 export function getStats(data, categories) {
   // console.log(Object.entries(categories));
-  const {heart, blood_pulse} = data
-  const dataNew = [...heart, ...blood_pulse]
+  const {heart} = data
+  const dataNew = [...heart]
 
   let stats = []
   for (const [key, value] of Object.entries(categories)) {
