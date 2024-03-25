@@ -83,13 +83,29 @@ useEffect(() => {}, [themeMode]);
             </Provider>
           </div>
         </div>
+        
       )}
-        {/* <LineGraph /> */}
-        {/* <StepCountsGraph /> 
-      <Togglebutton /> */}
       
       </ThemeProvider>
+
+      <ThemeProvider value={{ themeMode, darkTheme, lightTheme }}>
+      {data && (
+         <div
+         className="wrapper"
+         style={{
+           backgroundColor: themeMode === "light" ? "#ffffff" : "#333333",
+           color: themeMode === "light" ? "#333333" : "#ffffff",
+         }}
+       >
+        <div className="box">
+            <StepCountsGraph />
+          </div>
+        </div>
+        
+      )}
+      </ThemeProvider>
       <img src="../public/logo_hl.png" alt="" />
+      
     </div>
       
   );

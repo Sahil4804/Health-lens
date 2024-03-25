@@ -24,7 +24,7 @@ const StepCountsGraph = () => {
       .style("-webkit-tap-highlight-color", "transparent")
       .style("overflow", "visible");
 
-    Promise.all([d3.csv("./step_hourly1.csv"), d3.csv("./step_hourly2.csv")]).then(
+    Promise.all([d3.csv("./src/components/LinePLot/step_hourly1.csv"), d3.csv("./src/components/LinePLot/step_hourly2.csv")]).then(
       ([data1, data2]) => {
         console.log(data1, data2)
         data1.forEach(function (d) {
