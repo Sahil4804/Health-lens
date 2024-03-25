@@ -85,10 +85,11 @@ useEffect(() => {}, [themeMode]);
         </div>
       )}
         {/* <LineGraph /> */}
-        <StepCountsGraph />
-      <Togglebutton />
+        {/* <StepCountsGraph /> 
+      <Togglebutton /> */}
       
       </ThemeProvider>
+      <img src="../public/logo_hl.png" alt="" />
     </div>
       
   );
