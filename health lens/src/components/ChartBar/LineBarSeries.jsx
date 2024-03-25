@@ -1,15 +1,17 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types"
-import * as d3 from "d3"
+import PropTypes from "prop-types";
+import * as d3 from "d3";
 
 import Chart from "../ChartSVG/Chart";
 import Axis from "../ChartAxis/Axis";
-import Bar from "./Bar"
+import Bar from "./Bar";
 import Line from "../ChartLine/Line";
 import { getStats } from "../../utils/stats";
-
+import useTheme from "../../contexts/ProvideContext";
 
 const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
+  const { themeMode } = useTheme();
+
   const mobile_portrait =
     Math.min(window.innerWidth) <= 600 &&
     Math.abs(window.screen.orientation.angle === 0);
@@ -67,17 +69,25 @@ const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
   //     .domain([0,2,4,6,8])
   //     .range(["#DFF9F2", "#B6EEE3", "#8CE4D3", "#63D9C3", "#3ACFB4", "#11C4A4", "#00A388"]);
 
+  //   const colorScale = d3
+  //     .scaleLinear()
+  //     .domain([0, 8]) // Replace with the maximum value in your data
+  //     .range(["#6b6969", "#454444"]); // Light gray to darker gray
+
   const colorScale = d3
     .scaleLinear()
     .domain([0, 8]) // Replace with the maximum value in your data
-    .range(["#6b6969", "#454444"]); // Light gray to darker gray
+    .range(
+      themeMode === "dark" ? ["#6b6969", "#454444"] : ["#9ee19a", "#187a17"]
+    ); // Light gray to darker gray or light green to dark green
 
   const colorScale1 = d3
     .scaleLinear()
     .domain([0, 10])
     .range(["#dbcdf0", "#5e4ae3"]);
 
-  const lineColorAccessor = (d) => "#fa6c07";
+  //   const lineColorAccessor = (d) => "#fa6c07";
+  const lineColorAccessor = (d) => (themeMode === "dark" ? "#fa6c07" : "red");
   const colorAccessor = (d) => colorScale(d.value);
   const colorAccessor1 = (d) => colorScale1(d.value);
   const xAccessorScaled = (d) => xScale(xAccessor(d));
@@ -309,19 +319,18 @@ const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
       </foreignObject>
     </Chart>
   );
-}
-
+};
 
 LineBarSeries.propTypes = {
   data: PropTypes.object,
   types: PropTypes.array,
   dimensions: PropTypes.object,
-  timeFormat: PropTypes.func
-}
+  timeFormat: PropTypes.func,
+};
 
 LineBarSeries.defaultProps = {
-  types: ['line', 'bar'],
-  timeFormat: d3.timeFormat("%H:%M:%S %p")
-}
+  types: ["line", "bar"],
+  timeFormat: d3.timeFormat("%H:%M:%S %p"),
+};
 
-export default LineBarSeries
+export default LineBarSeries;
