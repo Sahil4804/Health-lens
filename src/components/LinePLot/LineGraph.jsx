@@ -58,8 +58,8 @@ const StepCountsGraph = () => {
 
     // Asynchronously fetching data from CSV files
     Promise.all([
-      d3.csv("/src/components/LinePLot/step_hourly1.csv"),
-      d3.csv("/src/components/LinePLot/step_hourly2.csv")
+      d3.csv("step_hourly1.csv"),
+      d3.csv("step_hourly2.csv")
     ]).then(([data1, data2]) => {
       // Data preprocessing for both datasets
       data1.forEach(function (d) {
