@@ -190,7 +190,7 @@ const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
         y2={yScale(something[0].average)}
         stroke={themeMode === "light" ? "#333333" : "white"}
         strokeWidth={2}
-        strokeDasharray="4"
+        // strokeDasharray="4"
       />
 
       <line
@@ -200,7 +200,7 @@ const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
         y2={yScale(80)}
         stroke={themeMode === "light" ? "#333333" : "white"}
         strokeWidth={2}
-        // strokeDasharray="4"
+        strokeDasharray="4"
       />
      
       {lineValues.map((d, i) => {
@@ -239,7 +239,7 @@ const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
           }}
         >
           <text fill={"black"} fontWeight="bold">
-            recommend HeartRate{" "}
+            Recommend HeartRate{" "}
           </text>
         </div>
       </foreignObject>
