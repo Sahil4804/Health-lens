@@ -86,9 +86,9 @@ useEffect(() => {}, [themeMode]);
         
       )}
       
-      </ThemeProvider>
+      {/* </ThemeProvider>
 
-      <ThemeProvider value={{ themeMode, darkTheme, lightTheme }}>
+      <ThemeProvider value={{ themeMode, darkTheme, lightTheme }}> */}
       {data && (
          <div
          className="wrapper"
@@ -103,8 +103,10 @@ useEffect(() => {}, [themeMode]);
         </div>
         
       )}
+
+      <Togglebutton />
       </ThemeProvider>
-      <img src="../public/logo_hl.png" alt="" />
+      
       
     </div>
       
