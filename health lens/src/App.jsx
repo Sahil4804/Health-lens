@@ -16,12 +16,12 @@ const metricsAttrs = { position: 'top', value: "maximum", categories: { 'heart_r
 import { ThemeProvider } from "./contexts/ProvideContext";
 
 const App = () => {
-    var lol=0;
+  var lol = 0;
   const [data, setData] = useState(null)
   const LineBarChart = ChartWithPanel((props) => <LineBarSeries {...props} />)
   //const milliseconds = 60000 //this will update the chart every minute
-  const milliseconds = 1000 //this will update the chart every second (for testing purposes)
-  const timeFormat = milliseconds === 1000 ? d3.timeFormat("%H:%M:%S %p") : d3.timeFormat("%H:%M %p")
+  const milliseconds = 2000 //this will update the chart every second (for testing purposes)
+  const timeFormat = milliseconds === 2000 ? d3.timeFormat("%H:%M:%S %p") : d3.timeFormat("%H:%M %p")
 
   useEffect(() => {
 }, [])
@@ -36,7 +36,8 @@ useEffect(() => {
       const current = new Date()
 
       let dataInitial = getData(milliseconds, lol)
-      lol+=10
+      lol+=1
+      
       
       setData(dataInitial)
       setDateTime({'start': new Date(new Date().setHours(new Date().getHours() + dataInitial.hours)), 'current': current})
