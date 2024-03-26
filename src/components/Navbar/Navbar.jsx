@@ -5,11 +5,31 @@ import Togglebutton from '../../utils/Togglebutton'; // Importing the Togglebutt
 const Navbar = () => {
   // Returning JSX for the Navbar component
   return (
-    <nav style={{ position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 100, boxShadow: '0 2px 4px rgba(0,0,0,0.1)', backgroundColor: '#ffffff' }}>
+    <nav
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100%",
+        zIndex: 100,
+        boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+        backgroundColor: "#ffffff",
+      }}
+    >
       {/* Creating a navigation bar with fixed position, using inline styles */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 20px' }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "10px 20px",
+        }}
+      >
         {/* Creating a div element with flex display, aligning items center, and justifying content space-between */}
-        <img src="./logo_hl.png" alt="" style={{ height: '7vw' }} />
+        <img src="./logo_hl.png" alt="" style={{ height: "20px" }} />
+        <a href="https://youtu.be/qf0cI6SM_B8">
+            <img src="./youtube_icon.png" alt="" style={{ height: "20px" }} />
+        </a>
         <Togglebutton /> {/* Rendering the Togglebutton component */}
       </div>
     </nav>
