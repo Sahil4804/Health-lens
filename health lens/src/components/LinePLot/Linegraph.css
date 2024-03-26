@@ -50,3 +50,13 @@
     margin-top: 10px; /* Adjust margin */
   }
 }
+@media only screen and (max-width: 700px) {
+  .container {
+    width: 85vw; /* Adjust width for smaller screens */
+    height: auto; /* Allow height to adjust based on content */
+    left: 9vw; /* Adjust positioning */
+    padding-top: 15px; /* Adjust padding */
+    padding-left: 25px; /* Adjust padding */
+    margin-top: 15px; /* Adjust margin */
+  }
+}
