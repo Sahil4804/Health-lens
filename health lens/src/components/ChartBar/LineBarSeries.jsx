@@ -73,13 +73,13 @@ const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
   // Creating color scale based on theme mode
   const colorScale = d3
     .scaleLinear()
-    .domain([0, 8])
+    .domain([0, 10])
     .range(
-      themeMode === "dark" ? ["#6b6969", "#454444"] : ["#F1EAFF", "#DCBFFF"]
+      themeMode === "dark" ? ["#918e8e", "#6e6e6e"] : ["#F1EAFF", "#DCBFFF"]
     );
 
   // Accessors for colors and scaled values
-  const lineColorAccessor = (d) => (themeMode === "dark" ? "#fa6c07" : "red");
+  const lineColorAccessor = (d) => (themeMode === "dark" ? "#fa6c07" : "#99004C");
   const colorAccessor = (d) => colorScale(d.value);
   const xAccessorScaled = (d) => xScale(xAccessor(d));
   const xAccessorScaledBar = (d) => xScale(xAccessor(d)) - barWidth / 2;
