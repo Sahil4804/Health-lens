@@ -2,10 +2,11 @@
 import * as d3 from 'd3'
 
 
-var arr=[]
+let arr=[]
 
 export const csv_data = async function(){
-    arr=await d3.csv("/src/utils/output.csv")
+    // arr=await d3.csv("/src/utils/output.csv")
+    arr=await d3.csv("output.csv")
 }
 export const getData = (interval,index) => {
 
