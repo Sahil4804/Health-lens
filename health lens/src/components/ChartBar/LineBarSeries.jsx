@@ -246,7 +246,7 @@ const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
       })}
 
       {/* Rendering recommendation for heart rate */}
-      <foreignObject
+      {/* <foreignObject
         x={0}
         y={0}
         width={dimensions.boundedWidth}
@@ -270,7 +270,7 @@ const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
             Recommend HeartRate{" "}
           </text>
         </div>
-      </foreignObject>
+      </foreignObject> */}
     </Chart>
   );
 };

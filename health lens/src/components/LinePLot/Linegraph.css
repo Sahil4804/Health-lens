@@ -1,36 +1,52 @@
 .container {
-  width: 60vw; /* Sets the width to 60% of the viewport width */
-  height: 60vh; /* Sets the height to 60% of the viewport height */
-  min-width: 700px; /* Sets the minimum width to 700 pixels */
-  position: absolute; /* Positions the element absolutely within its containing element */
-  position: relative; /* Overrides the previous position:absolute declaration, setting the position to relative */
-  left: 20vw; /* Positions the element 20% of the viewport width from the left */
-  top: 10vh; /* Positions the element 10% of the viewport height from the top */
-  padding-top: 50px; /* Adds 50 pixels of padding to the top */
-  padding-left: 50px; /* Adds 50 pixels of padding to the left */.container {
-    width: 100%; /* Set width to 100% */
-    height: auto; /* Allow height to adjust based on content */
-    min-width: 700px; /* Sets the minimum width to 700 pixels */
-    position: relative; /* Set position to relative */
-    padding-top: 50px; /* Adds 50 pixels of padding to the top */
-    padding-left: 50px; /* Adds 50 pixels of padding to the left */
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Adds a shadow effect to the container */
-    border-radius: 20px; /* Rounds the corners of the container */
-    margin-top: 20px; /* Adds margin of 20 pixels from the top */
-  }
-  
-  #plot-container {
-    width: 100%; /* Ensure plot container fills the parent container */
-    height: 100%; /* Ensure plot container fills the parent container */
-  }
-  
-  #plot {
-    width: 100%; /* Ensure SVG fills the plot container */
-    height: 100%; /* Ensure SVG fills the plot container */
-  }
-  
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Adds a shadow effect to the container */
-  border-radius: 20px; /* Rounds the corners of the container */
-  margin-top: 20px; /* Adds margin of 20 pixels from the top */
+  width: 60vw;
+  /* Sets the width to 60% of the viewport width */
+  height: 60vh;
+  /* Sets the height to 60% of the viewport height */
+  position: absolute;
+  /* Positions the element absolutely within its containing element */
+  position: relative;
+  /* Overrides the previous position:absolute declaration, setting the position to relative */
+  left: 20vw;
+  /* Positions the element 20% of the viewport width from the left */
+  top: 10vh;
+  /* Positions the element 10% of the viewport height from the top */
+  padding-top: 5vw;
+  /* Adds 50 pixels of padding to the top */
+  padding-left: 50px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  /* Adds a shadow effect to the container */
+  border-radius: 20px;
+  /* Rounds the corners of the container */
+  margin-top: 20px;
+  /* Adds margin of 20 pixels from the top */
+
+  /* Adds 50 pixels of padding to the left */
 }
 
+
+
+#plot-container {
+  width: 100%;
+  /* Ensure plot container fills the parent container */
+  height: 100%;
+  /* Ensure plot container fills the parent container */
+}
+
+#plot {
+  width: 100%;
+  /* Ensure SVG fills the plot container */
+  height: 100%;
+  /* Ensure SVG fills the plot container */
+}
+
+@media only screen and (max-width: 600px) {
+  .container {
+    width: 90vw; /* Adjust width for smaller screens */
+    height: auto; /* Allow height to adjust based on content */
+    left: 5vw; /* Adjust positioning */
+    padding-top: 10px; /* Adjust padding */
+    padding-left: 20px; /* Adjust padding */
+    margin-top: 10px; /* Adjust margin */
+  }
+}

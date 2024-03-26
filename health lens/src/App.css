@@ -1,7 +1,7 @@
 .wrapper {
   width: 60vw;
   height: 60vh;
-  min-width: 700px;
+  /* min-width: 700px; */
   /* position: absolute; */
   position: relative;
   left: 20vw;
@@ -13,6 +13,15 @@
   margin-top: 80px;
   /*grid-template-columns: repeat(2, minmax(0, 1fr))*/
   
+}
+@media only screen and (max-width: 600px) {
+  .wrapper {
+    width: 90vw; /* Adjust width for smaller screens */
+    left: 5vw; /* Adjust positioning */
+    padding-top: 20px; /* Adjust padding */
+    padding-left: 20px; /* Adjust padding */
+    margin-top: 20px; /* Adjust margin */
+  }
 }
 .box {
   width: 90%;
@@ -64,3 +73,4 @@
 @keyframes l22 {
   100% {transform: rotate(1turn)}
 }
+
