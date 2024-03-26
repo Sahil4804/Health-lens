@@ -4,6 +4,7 @@ import StepCountsGraph from './components/LinePLot/LineGraph';
 import { ThemeProvider } from "./contexts/ProvideContext";
 import { useState, useEffect } from 'react';
 import Togglebutton from './utils/Togglebutton';
+import Navbar from './components/Navbar/Navbar';
 function Sup() {
   const [themeMode, setThemeMode] = useState('light');
   const darkTheme = () => {
@@ -16,7 +17,8 @@ function Sup() {
   return (
     <ThemeProvider value={{ themeMode, darkTheme, lightTheme }}>
       <div>
-        <img src="../public/logo_hl.png" alt="" style={{ height: "100px" }} />
+        {/* <img src="../public/logo_hl.png" alt="" style={{ height: "100px" }} /> */}
+        <Navbar />
         <App />
         <StepCountsGraph />
       </div>
