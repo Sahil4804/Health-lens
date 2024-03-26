@@ -1,13 +1,13 @@
 import React from 'react'
 import useTheme from '../contexts/ProvideContext'
-
+import './togglebutton.css'
 
 function Togglebutton() {
 
-    const {themeMode,darkTheme,lightTheme} = useTheme();
+  const { themeMode, darkTheme, lightTheme } = useTheme();
 
   return (
-    <>
+    <div className='Toggle-parent'>
       <button
         style={{
           backgroundColor: themeMode === "light" ? "#ffffff" : "#333333",
@@ -21,7 +21,8 @@ function Togglebutton() {
       >
         {themeMode === "light" ? "Dark" : "Light"}
       </button>
-    </>
+    </div>
+
   );
 }
 

@@ -4,9 +4,9 @@ import "./Linegraph.css";
 import useTheme from "../../contexts/ProvideContext";
 import { useState } from "react";
 const StepCountsGraph = () => {
-  const svgRef = useRef();
-  const { themeMode } = useTheme();
-  // const [tooltip, setTooltip] = useState(null);
+  const svgRef = useRef(); // reference to the svg element
+  const { themeMode } = useTheme(); // get the theme mode from the context
+  const [tooltip, setTooltip] = useState(null); // state to store the tooltip
   useEffect(() => {
     const width = 828;
     const height = 500;
@@ -183,7 +183,7 @@ const StepCountsGraph = () => {
   }, []);
   // useEffect(()=>{
   //   if (themeMode === "dark") {
-  //     tooltip.style("color", "red");
+  //     tooltip.style("stroke", "red");
   //   }
   
 

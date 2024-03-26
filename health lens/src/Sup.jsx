@@ -22,7 +22,7 @@ function Sup() {
         <App />
         <StepCountsGraph />
       </div>
-      <Togglebutton />
+      {/* <Togglebutton /> */}
     </ThemeProvider>
   );
 }
