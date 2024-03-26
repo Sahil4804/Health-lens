@@ -2,25 +2,27 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import * as d3 from "d3";
 
-import Chart from "../ChartSVG/Chart";
-import Axis from "../ChartAxis/Axis";
-import Bar from "./Bar";
-import Line from "../ChartLine/Line";
-import { getStats } from "../../utils/stats";
-import useTheme from "../../contexts/ProvideContext";
+import Chart from "../ChartSVG/Chart"; // Importing Chart component
+import Axis from "../ChartAxis/Axis"; // Importing Axis component
+import Bar from "./Bar"; // Importing Bar component
+import Line from "../ChartLine/Line"; // Importing Line component
+import { getStats } from "../../utils/stats"; // Importing getStats function
+import useTheme from "../../contexts/ProvideContext"; // Importing useTheme context
 
 const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
-  const { themeMode } = useTheme();
+  const { themeMode } = useTheme(); // Accessing themeMode from context
 
+  // Check if device is in portrait mode
   const mobile_portrait =
     Math.min(window.innerWidth) <= 600 &&
     Math.abs(window.screen.orientation.angle === 0);
 
+  // State to manage hover behavior
   const [hover, setHover] = useState({ show: false });
 
-  const { heart, blood_pulse } = data;
+  const { heart, blood_pulse } = data; // Destructuring heart and blood_pulse from data
 
-  // Manually group data by category
+  // Grouping heart data by category
   const groupedHeart = {};
   heart.forEach((item) => {
     if (!groupedHeart[item.category]) {
@@ -29,29 +31,34 @@ const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
     groupedHeart[item.category].push(item);
   });
 
+  // Creating nested array with key-value pairs for heart data
   const nested = Object.entries(groupedHeart).map(([key, values]) => ({
     key,
     values,
   }));
 
+  // Assigning types to nested data
   types.forEach((d, i) => {
     nested[i].type = d;
   });
 
+  // Separating bar and line values from nested data
   const barValues = nested.filter((d) => d.type === "bar");
   const barValuesAll = barValues.map((d) => d.values).flat();
   const lineValues = nested.filter(
     (d) => d.type === "line" || d.type === "area"
   );
 
+  // Calculating bar width based on chart dimensions and data length
   const barWidth = dimensions.boundedWidth / barValuesAll.length;
   const height = dimensions.boundedHeight;
   const topHeight = height * (4 / 4);
-  const bottomHeight = height * (1 / 4);
 
+  // Accessors for x and y values
   const xAccessor = (d) => d.date;
   const yAccessor = (d) => d.value;
 
+  // Creating scales for x and y axes
   const xScale = d3
     .scaleTime()
     .domain(d3.extent(heart, xAccessor))
@@ -62,22 +69,16 @@ const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
     .domain([40, 135])
     .range([topHeight, 0])
     .nice();
-  
-  //   const colorScale = d3
-  //     .scaleLinear()
-  //     .domain([0, 8]) // Replace with the maximum value in your data
-  //     .range(["#6b6969", "#454444"]); // Light gray to darker gray
 
+  // Creating color scale based on theme mode
   const colorScale = d3
     .scaleLinear()
-    .domain([0, 8]) // Replace with the maximum value in your data
+    .domain([0, 8])
     .range(
-      themeMode === "dark" ? ["#6b6969", "#454444"] : ["#F1EAFF","#DCBFFF"]
-    ); // Light gray to darker gray or light green to dark green
+      themeMode === "dark" ? ["#6b6969", "#454444"] : ["#F1EAFF", "#DCBFFF"]
+    );
 
-  
-
-  //   const lineColorAccessor = (d) => "#fa6c07";
+  // Accessors for colors and scaled values
   const lineColorAccessor = (d) => (themeMode === "dark" ? "#fa6c07" : "red");
   const colorAccessor = (d) => colorScale(d.value);
   const xAccessorScaled = (d) => xScale(xAccessor(d));
@@ -85,8 +86,10 @@ const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
   const yAccessorScaled = (d) => yScale(yAccessor(d));
   const y0AccessorScaled = yScale(yScale.domain()[0]);
 
+  // Array for heart rate
   const hr = d3.range(0, 20, 2);
 
+  // Popover function to handle mouse over events
   const popover = (d) => {
     let date = xScale.invert(d.x);
     let hrValue = heart.find(
@@ -104,20 +107,23 @@ const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
       show: d.show,
     });
   };
+
+  // Stats calculation using getStats function
   var something = getStats(data, { heart_rate: "Heart Rate" });
-  // console.log(something);
+
   return (
     <Chart dimensions={dimensions}>
+      {/* Group for intensity of motion */}
       <g
         transform={
           mobile_portrait ? `translate(-30, -60)` : `translate(0, -60)`
         }
       >
-        <text x={0} y={-5} fill={themeMode==='light'?"black":"white"} fontWeight="bold">
+        <text x={0} y={-5} fill={themeMode === "light" ? "black" : "white"} fontWeight="bold">
           Intensity of motion
         </text>
-        
 
+        {/* X axis for intensity of motion */}
         <Axis
           dimensions={{ boundedWidth: hr.length * barWidth, boundedHeight: 25 }}
           dimension="x"
@@ -128,6 +134,8 @@ const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
           tickSize={10}
           type="step"
         />
+        
+        {/* Bar chart for intensity of motion */}
         <Bar
           data={hr}
           xAccessor={(d, i) => i * barWidth}
@@ -140,6 +148,7 @@ const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
       </g>
    
       <g transform={`translate(0, 0)`}>
+        {/* X and Y axes */}
         <Axis
           dimensions={dimensions}
           dimension="x"
@@ -158,6 +167,7 @@ const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
           label={"Heart Rate (BPM)"}
         />
 
+        {/* Bar chart for heart rate */}
         <Bar
           data={barValuesAll}
           xAccessor={xAccessorScaledBar}
@@ -167,11 +177,14 @@ const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
           width={barWidth}
           mouseOver={popover}
         />
+        {/* Displaying intensity of motion */}
         {hover.show && (
           <text x={xScale(hover.date) - barWidth / 2} y={topHeight}>
             {hover.heart_intensity}
           </text>
         )}
+
+        {/* Displaying heart rate */}
 
         {hover.show && (
           <text
@@ -193,6 +206,18 @@ const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
         // strokeDasharray="4"
       />
 
+            {/* Horizontal line for average heart rate */}
+            <line
+        x1={0}
+        y1={yScale(something[0].average)}
+        x2={dimensions.boundedWidth}
+        y2={yScale(something[0].average)}
+        stroke={themeMode === "light" ? "#333333" : "white"}
+        strokeWidth={2}
+        // strokeDasharray="4"
+      />
+
+      {/* Horizontal line for recommended heart rate */}
       <line
         x1={0}
         y1={yScale(80)}
@@ -203,6 +228,7 @@ const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
         strokeDasharray="4"
       />
      
+      {/* Rendering line and area charts */}
       {lineValues.map((d, i) => {
         return (
           <Line
@@ -218,6 +244,8 @@ const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
           />
         );
       })}
+
+      {/* Rendering recommendation for heart rate */}
       <foreignObject
         x={0}
         y={0}
@@ -247,6 +275,7 @@ const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
   );
 };
 
+// Prop Types validation
 LineBarSeries.propTypes = {
   data: PropTypes.object,
   types: PropTypes.array,
@@ -254,6 +283,7 @@ LineBarSeries.propTypes = {
   timeFormat: PropTypes.func,
 };
 
+// Default props
 LineBarSeries.defaultProps = {
   types: ["line", "bar"],
   timeFormat: d3.timeFormat("%H:%M:%S %p"),
