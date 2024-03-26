@@ -105,7 +105,7 @@ const LineBarSeries = ({ data, types, dimensions, timeFormat }) => {
     });
   };
   var something = getStats(data, { heart_rate: "Heart Rate" });
-  console.log(something);
+  // console.log(something);
   return (
     <Chart dimensions={dimensions}>
       <g

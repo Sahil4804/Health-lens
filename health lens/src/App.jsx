@@ -9,6 +9,7 @@ import { getData,csv_data } from "./utils/getData";
 import Togglebutton from "./utils/Togglebutton";
 // import LineGraph from "./components/LinePLot/LineGraph";
 import StepCountsGraph from "./components/LinePLot/LineGraph";
+import useTheme from "./contexts/ProvideContext";
 import './App.css'
 
 const metricsAttrs = { position: 'top', value: "maximum", categories: { 'heart_rate': 'Heart Rate' }}
@@ -48,19 +49,20 @@ useEffect(() => {
     return () => clearInterval(interval);
     
 }, []);
-const [themeMode, setThemeMode] = useState('light');
-const darkTheme = () => {
-    setThemeMode('dark');
-}
-const lightTheme = () => {
-    setThemeMode('light');
-}
-useEffect(() => {}, [themeMode]);
+// const [themeMode, setThemeMode] = useState('light');
+// const darkTheme = () => {
+//     setThemeMode('dark');
+// }
+// const lightTheme = () => {
+//     setThemeMode('light');
+// }
+  // useEffect(() => {}, [themeMode]);
+  const { themeMode} = useTheme();
 
   return (
     <div style={{width:"50px"}}>
 
-    <ThemeProvider value={{ themeMode, darkTheme, lightTheme }}>
+    {/* <ThemeProvider value={{ themeMode, darkTheme, lightTheme }}> */}
       {data && (
         <div
           className="wrapper"
@@ -89,7 +91,7 @@ useEffect(() => {}, [themeMode]);
       {/* </ThemeProvider>
 
       <ThemeProvider value={{ themeMode, darkTheme, lightTheme }}> */}
-      {data && (
+      {/* {data && (
          <div
          className="wrapper"
          style={{
@@ -102,10 +104,10 @@ useEffect(() => {}, [themeMode]);
           </div>
         </div>
         
-      )}
+      )} */}
 
-      <Togglebutton />
-      </ThemeProvider>
+      
+      {/* </ThemeProvider> */}
       
       
     </div>

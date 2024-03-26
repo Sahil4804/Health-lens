@@ -10,9 +10,9 @@ export const csv_data = async function(){
 export const getData = (interval,index) => {
 
 
-  console.log("arr length ",arr.length)
-  console.log("arr elem",arr[0])
-  console.log(index)
+  // console.log("arr length ",arr.length)
+  // console.log("arr elem",arr[0])
+  // console.log(index)
   var data = [],
     time = (new Date()).getTime();
 

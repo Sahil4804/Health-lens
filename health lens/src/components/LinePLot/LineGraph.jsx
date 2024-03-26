@@ -1,16 +1,19 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
-
+import "./Linegraph.css";
+import useTheme from "../../contexts/ProvideContext";
+import { useState } from "react";
 const StepCountsGraph = () => {
   const svgRef = useRef();
-
+  const { themeMode } = useTheme();
+  // const [tooltip, setTooltip] = useState(null);
   useEffect(() => {
-    const width = 628;
-    const height = 300;
+    const width = 828;
+    const height = 500;
     const marginTop = 20;
-    const marginRight = 30;
+    const marginRight = 5;
     const marginBottom = 30;
-    const marginLeft = 40;
+    const marginLeft = 400;
 
     const svg = d3
       .select(svgRef.current)
@@ -26,7 +29,7 @@ const StepCountsGraph = () => {
 
     Promise.all([d3.csv("./src/components/LinePLot/step_hourly1.csv"), d3.csv("./src/components/LinePLot/step_hourly2.csv")]).then(
       ([data1, data2]) => {
-        console.log(data1, data2)
+        // console.log(data1, data2)
         data1.forEach(function (d) {
           d.ActivityHour = new Date(d.ActivityHour);
           d.ActivityHour = d.ActivityHour.toLocaleTimeString("en-US", {
@@ -112,11 +115,13 @@ const StepCountsGraph = () => {
           .on("mouseout", pointerleft);
 
         const tooltip = svg.append("g").style("display", "none");
-
+        
         tooltip.append("text").attr("x", 10).attr("dy", "-1.2em");
+        setTooltip(tooltip);
 
         function pointermoved(event, d) {
           tooltip.style("display", "block");
+          
           tooltip.attr(
             "transform",
             `translate(${x(d.ActivityHour) + x.bandwidth() / 2}, ${y(
@@ -127,8 +132,8 @@ const StepCountsGraph = () => {
             .select("text")
             .text(
               formatDate(d.ActivityHour) +
-                ", Steps: " +
-                formatValue(d.StepTotal)
+              ", Steps: " +
+              formatValue(d.StepTotal)
             );
         }
 
@@ -176,9 +181,20 @@ const StepCountsGraph = () => {
       }
     );
   }, []);
+  // useEffect(()=>{
+  //   if (themeMode === "dark") {
+  //     tooltip.style("color", "red");
+  //   }
+  
 
+  // },[themeMode])
+ 
   return (
-    <div className="container">
+
+    <div className="container" style={{
+      backgroundColor: themeMode === "light" ? "#ffffff" : "#333333",
+      color: themeMode === "light" ? "#333333" : "#ffffff",
+    }}>
       <h1>Step Counts Graph</h1>
       <div id="plot-container">
         <svg ref={svgRef} id="plot"></svg>
