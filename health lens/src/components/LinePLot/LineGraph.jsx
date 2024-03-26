@@ -10,24 +10,51 @@ const StepCountsGraph = () => {
   const [tooltip, setTooltip] = useState(null); // state to store the tooltip
   
   useEffect(() => {
-    const width = 828;
-    const height = 500;
-    const marginTop = 20;
-    const marginRight = 5;
-    const marginBottom = 30;
-    const marginLeft = 400;
+    // const width = 828;
+    // const height = 500;
+    // const marginTop = 20;
+    // const marginRight = 5;
+    // const marginBottom = 30;
+    // const marginLeft = 100;
+
+    // const svg = d3
+    //   .select(svgRef.current) // Selecting the SVG element using useRef
+    //   .attr("viewBox", [0, 0, width, height]) // Setting viewBox for responsive SVG
+    //   .attr("width", width) // Setting width of SVG
+    //   .attr("height", height) // Setting height of SVG
+    //   .attr(
+    //     "style",
+    //     "max-width: 100%; height: auto; height: intrinsic; font: 10px sans-serif;"
+    //   ) // Applying inline styles for responsiveness
+    //   .style("-webkit-tap-highlight-color", "transparent") // Hiding tap highlight on mobile
+    //   .style("overflow", "visible"); // Making sure overflow is visible for SVG elements
+
+    const updateDimensions = () => {
+      const containerWidth = document.getElementById("plot-container").offsetWidth;
+      const containerHeight = containerWidth * 0.6; // Adjust the aspect ratio as needed
+
+      const margin = { top: 20, right: 11, bottom: 30, left: containerWidth * 0.05 };
+
+      const width = containerWidth - margin.left - margin.right;
+      const height = containerHeight - margin.top - margin.bottom;
+      const marginTop = margin.top;
+      const marginRight = margin.right;
+      const marginBottom = margin.bottom;
+      const marginLeft = margin.left;
+
+      return { width, height, margin,marginTop,marginRight,marginBottom,marginLeft };
+    };
+
+    const { width, height, margin,marginTop,marginRight,marginBottom,marginLeft } = updateDimensions();
 
     const svg = d3
-      .select(svgRef.current) // Selecting the SVG element using useRef
-      .attr("viewBox", [0, 0, width, height]) // Setting viewBox for responsive SVG
-      .attr("width", width) // Setting width of SVG
-      .attr("height", height) // Setting height of SVG
-      .attr(
-        "style",
-        "max-width: 100%; height: auto; height: intrinsic; font: 10px sans-serif;"
-      ) // Applying inline styles for responsiveness
-      .style("-webkit-tap-highlight-color", "transparent") // Hiding tap highlight on mobile
-      .style("overflow", "visible"); // Making sure overflow is visible for SVG elements
+      .select(svgRef.current)
+      .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
+      .attr("preserveAspectRatio", "xMidYMid meet")
+      .attr("width", "100%")
+      .attr("height", "100%")
+      .append("g")
+      .attr("transform", `translate(${margin.left},${margin.top})`);
 
     // Asynchronously fetching data from CSV files
     Promise.all([
@@ -182,15 +209,14 @@ const StepCountsGraph = () => {
               .attr("x2", width - marginLeft - marginRight)
               .attr("stroke-opacity", 0.1)
           )
-          .call((g) =>
-            g
-              .append("text")
-              .attr("x", -marginLeft)
-              .attr("y", 10)
-              .attr("fill", "currentColor")
-              .attr("text-anchor", "start")
-              .text("↑ Number of Steps")
-          );
+          // .call((g) =>
+          //   g
+          //     .append("text")
+          //     .attr("x", -marginLeft)
+          //     .attr("y", 10)
+          //     .attr("fill", "currentColor")
+          //     .attr("text-anchor", "start")
+          // );
       }
     );
   }, []); // useEffect hook to run once after component mount
@@ -201,7 +227,7 @@ const StepCountsGraph = () => {
       backgroundColor: themeMode === "light" ? "#ffffff" : "#333333",
       color: themeMode === "light" ? "#333333" : "#ffffff",
     }}>
-      <h1>Step Counts Graph</h1>
+      {/* <h1>Step Counts Graph</h1> */}
       <div id="plot-container">
         <svg ref={svgRef} id="plot"></svg> {/* SVG element */}
       </div>
