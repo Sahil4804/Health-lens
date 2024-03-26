@@ -7,24 +7,32 @@ import Togglebutton from './utils/Togglebutton';
 import Navbar from './components/Navbar/Navbar';
 function Sup() {
   const [themeMode, setThemeMode] = useState('light');
+  const [isloading, setIsloading] = useState(true);
+  function makefalse() {
+    console.log("makefalse")
+    setIsloading(false)
+  }
   const darkTheme = () => {
     setThemeMode('dark');
   }
   const lightTheme = () => {
     setThemeMode('light');
   }
-  useEffect(() => { }, [themeMode]);
+  useEffect(() => { }, [themeMode, isloading]);
+ 
   return (
+
     <ThemeProvider value={{ themeMode, darkTheme, lightTheme }}>
-      <div>
+      <div >
         {/* <img src="../public/logo_hl.png" alt="" style={{ height: "100px" }} /> */}
         <Navbar />
-        <App />
+        <App isloading={ isloading} changer={makefalse} />
         <StepCountsGraph />
       </div>
       {/* <Togglebutton /> */}
     </ThemeProvider>
   );
+
 }
 
 export default Sup;
