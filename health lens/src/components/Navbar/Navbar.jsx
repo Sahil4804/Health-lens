@@ -9,7 +9,7 @@ const Navbar = () => {
       {/* Creating a navigation bar with fixed position, using inline styles */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 20px' }}>
         {/* Creating a div element with flex display, aligning items center, and justifying content space-between */}
-        <img src="../public/logo_hl.png" alt="" style={{ height: '100px' }} />
+        <img src="./logo_hl.png" alt="" style={{ height: '100px' }} />
         <Togglebutton /> {/* Rendering the Togglebutton component */}
       </div>
     </nav>
