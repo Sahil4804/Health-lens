@@ -6,7 +6,8 @@ import { useState, useEffect } from 'react';
 import Togglebutton from './utils/Togglebutton';
 import Navbar from './components/Navbar/Navbar';
 import TauArcComponent from './calorietracker.jsx';
-function Sup() {
+import Sidebar from './Sidebar.jsx';
+function Sup({ option }) {
   const [themeMode, setThemeMode] = useState('light');
   const [isloading, setIsloading] = useState(true);
   function makefalse() {
@@ -20,17 +21,20 @@ function Sup() {
     setThemeMode('light');
   }
   useEffect(() => { }, [themeMode, isloading]);
- 
+  
+
+  
+
   return (
 
     <ThemeProvider value={{ themeMode, darkTheme, lightTheme }}>
+
+      <Sidebar />
       <div >
-        {/* <img src="../public/logo_hl.png" alt="" style={{ height: "100px" }} /> */}
         <Navbar />
-        <App isloading={ isloading} changer={makefalse} />
+        <App isloading={isloading} changer={makefalse} />
         <StepCountsGraph />
       </div>
-      {/* <Togglebutton /> */}
       <TauArcComponent width={100} />
     </ThemeProvider>
   );

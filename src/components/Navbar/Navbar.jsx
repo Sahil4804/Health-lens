@@ -26,7 +26,7 @@ const Navbar = () => {
         }}
       >
         {/* Creating a div element with flex display, aligning items center, and justifying content space-between */}
-        <img src="./logo_hl.png" alt="" style={{ height: "15vh" }} />
+        <img src="./logo_hl.png" alt="" style={{ height: "10vh" }} />
         <a href="https://youtu.be/qf0cI6SM_B8">
           <img src="./youtube_icon.png" alt="" style={{ height: "5vh" }} />
         </a>
