@@ -5,6 +5,7 @@ import { ThemeProvider } from "./contexts/ProvideContext";
 import { useState, useEffect } from 'react';
 import Togglebutton from './utils/Togglebutton';
 import Navbar from './components/Navbar/Navbar';
+import TauArcComponent from './calorietracker.jsx';
 function Sup() {
   const [themeMode, setThemeMode] = useState('light');
   const [isloading, setIsloading] = useState(true);
@@ -30,6 +31,7 @@ function Sup() {
         <StepCountsGraph />
       </div>
       {/* <Togglebutton /> */}
+      <TauArcComponent width={100} />
     </ThemeProvider>
   );
 
