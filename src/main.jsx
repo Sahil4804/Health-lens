@@ -7,7 +7,7 @@ import Sup from './Sup'
 import App from './App'
 import TauArcComponent from './calorietracker.jsx';
 import StepCountsGraph from './components/LinePLot/LineGraph';
-
+import StackedBarChart from './Sleeptracker.jsx';
 const router= createBrowserRouter([
   {
     path: '/',
@@ -16,7 +16,8 @@ const router= createBrowserRouter([
       { path: '', element: <Sup /> },
       { path: 'heartrate', element: <App /> },
       { path: 'calorietracker', element: <TauArcComponent width={100} /> },
-      {path: 'stepcounts', element: <StepCountsGraph />}
+      { path: 'stepcounts', element: <StepCountsGraph /> },
+      { path: 'sleeptracker', element: <StackedBarChart /> }
     ]
   }
 ])
