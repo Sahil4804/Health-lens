@@ -9,6 +9,7 @@ import TauArcComponent from './calorietracker.jsx';
 import Sidebar from './Sidebar.jsx';
 import Heatmap from './Heatmap.jsx';
 import PolarChart from './components/Sleeptrack.jsx';
+import SleepCircle from './Sleep.jsx';
 function Sup({ option }) {
   const [themeMode, setThemeMode] = useState('light');
   const [isloading, setIsloading] = useState(true);
@@ -31,7 +32,7 @@ function Sup({ option }) {
 
     <ThemeProvider value={{ themeMode, darkTheme, lightTheme }}>
 
-      <Sidebar />
+      {/* <Sidebar />
       <div >
         <Navbar />
         <App isloading={isloading} changer={makefalse} />
@@ -41,6 +42,8 @@ function Sup({ option }) {
       <Heatmap/>
 
 
+      <Heatmap /> */}
+      <SleepCircle />
     </ThemeProvider>
   );
 
