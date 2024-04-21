@@ -8,6 +8,7 @@ import Navbar from './components/Navbar/Navbar';
 import TauArcComponent from './calorietracker.jsx';
 import Sidebar from './Sidebar.jsx';
 import Heatmap from './Heatmap.jsx';
+import PolarChart from './components/Sleeptrack.jsx';
 function Sup({ option }) {
   const [themeMode, setThemeMode] = useState('light');
   const [isloading, setIsloading] = useState(true);
@@ -38,6 +39,8 @@ function Sup({ option }) {
       </div>
       <TauArcComponent width={100} />
       <Heatmap/>
+
+
     </ThemeProvider>
   );
 
